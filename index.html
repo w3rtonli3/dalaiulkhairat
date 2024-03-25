@@ -1,33 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Article Reader</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Selection</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #6f1d1b;
+      color: #ffe6a7;
+    }
+    .book-content {
+      max-height: 300px; /* Set a maximum height */
+      overflow-y: auto; /* Enable vertical scrolling */
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Daily Article Reader</h1>
-        <form id="day-form">
-            <label for="day-select">Select a Day:</label>
-            <select id="day-select">
-                <option value="monday">Monday</option>
-                <option value="tuesday">Tuesday</option>
-                <option value="wednesday">Wednesday</option>
-                <option value="thursday">Thursday</option>
-                <option value="friday">Friday</option>
-                <option value="saturday">Saturday</option>
-                <option value="sunday">Sunday</option>
-            </select>
-            <button type="submit">Load Article</button>
-        </form>
-        <div id="article-container">
-            <!-- Article images will be loaded here -->
-        </div>
-        <button id="bookmark-btn">Bookmark</button>
-    </div>
 
-    <script src="script.js"></script>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 col-md-6 offset-md-3">
+      <h1 class="text-center">Select a Genre</h1>
+      <select id="genreSelect" class="form-control">
+        <option value="fantasy">Fantasy</option>
+        <option value="mystery">Mystery</option>
+        <option value="romance">Romance</option>
+        <option value="science-fiction">Science Fiction</option>
+      </select>
+
+      <h2 class="text-center mt-4">Select a Day</h2>
+      <select id="daySelect" class="form-control">
+        <option value="monday">Monday</option>
+        <option value="tuesday">Tuesday</option>
+        <option value="wednesday">Wednesday</option>
+        <option value="thursday">Thursday</option>
+        <option value="friday">Friday</option>
+        <option value="saturday">Saturday</option>
+        <option value="sunday">Sunday</option>
+      </select>
+
+      <div class="book-content mt-4">
+        <!-- Images will be displayed here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Images for each genre and day
+  const images = {
+    fantasy: {
+      monday: ['1.png', '2.png', '3.png'],
+      tuesday: ['image4.jpg', 'image5.jpg', 'image6.jpg'],
+      // Add images for other days...
+    },
+    mystery: {
+      monday: ['image7.jpg', 'image8.jpg', 'image9.jpg'],
+      tuesday: ['image10.jpg', 'image11.jpg', 'image12.jpg'],
+      // Add images for other days...
+    },
+    romance: {
+      monday: ['image13.jpg', 'image14.jpg', 'image15.jpg'],
+      tuesday: ['image16.jpg', 'image17.jpg', 'image18.jpg'],
+      // Add images for other days...
+    },
+    'science-fiction': {
+      monday: ['image19.jpg', 'image20.jpg', 'image21.jpg'],
+      tuesday: ['image22.jpg', 'image23.jpg', 'image24.jpg'],
+      // Add images for other days...
+    }
+  };
+
+  const genreSelect = document.getElementById('genreSelect');
+  const daySelect = document.getElementById('daySelect');
+  const bookContent = document.querySelector('.book-content');
+
+  function displayImages() {
+    const selectedGenre = genreSelect.value;
+    const selectedDay = daySelect.value;
+    const selectedImages = images[selectedGenre][selectedDay];
+
+    // Clear previous images
+    bookContent.innerHTML = '';
+
+    // Display images if there are any
+    if (selectedImages && selectedImages.length > 0) {
+      selectedImages.forEach(image => {
+        const imgElement = document.createElement('img');
+        imgElement.src = image;
+        imgElement.classList.add('mr-2'); // Add margin between images
+        bookContent.appendChild(imgElement);
+      });
+    } else {
+      // Display message if no images are available
+      const noImagesMessage = document.createElement('p');
+      noImagesMessage.textContent = 'No images available for the selected genre and day.';
+      bookContent.appendChild(noImagesMessage);
+    }
+  }
+
+  // Event listeners for select changes
+  genreSelect.addEventListener('change', displayImages);
+  daySelect.addEventListener('change', displayImages);
+</script>
+
 </body>
 </html>
