@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Contents</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #6f1d1b;
+      color: #ffe6a7;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      color: #bb9457;
+    }
+    .book-content {
+      max-height: 300px; /* Set a maximum height */
+      overflow-y: auto; /* Enable vertical scrolling */
+    }
+    .book-content img {
+      display: block;
+      max-width: 100%;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Book Contents</h1>
+  <div class="book-content">
+    <!-- Images will be displayed here -->
+  </div>
+</div>
+
+<script>
+  // Parse URL parameters to get selected genre and day
+  const params = new URLSearchParams(window.location.search);
+  const selectedGenre = params.get('genre');
+  const selectedDay = params.get('day');
+
+  // Images for each genre and day
+  const images = {
+    fantasy: {
+      monday: ['1.png', '2.png', '3.png'],
+      tuesday: ['fantasy_image4.jpg', 'fantasy_image5.jpg', 'fantasy_image6.jpg'],
+      // Add images for other days...
+    },
+    mystery: {
+      monday: ['mystery_image1.jpg', 'mystery_image2.jpg', 'mystery_image3.jpg'],
+      tuesday: ['mystery_image4.jpg', 'mystery_image5.jpg', 'mystery_image6.jpg'],
+      // Add images for other days...
+    },
+    romance: {
+      monday: ['romance_image1.jpg', 'romance_image2.jpg', 'romance_image3.jpg'],
+      tuesday: ['romance_image4.jpg', 'romance_image5.jpg', 'romance_image6.jpg'],
+      // Add images for other days...
+    },
+    'science-fiction': {
+      monday: ['scifi_image1.jpg', 'scifi_image2.jpg', 'scifi_image3.jpg'],
+      tuesday: ['scifi_image4.jpg', 'scifi_image5.jpg', 'scifi_image6.jpg'],
+      // Add images for other days...
+    }
+  };
+
+  const bookContent = document.querySelector('.book-content');
+
+  // Display images based on selected genre and day
+  if (selectedGenre && selectedDay && images[selectedGenre] && images[selectedGenre][selectedDay]) {
+    const selectedImages = images[selectedGenre][selectedDay];
+    selectedImages.forEach(image => {
+      const imgElement = document.createElement('img');
+      imgElement.src = image;
+      bookContent.appendChild(imgElement);
+    });
+  } else {
+    // Display message if no images are available
+    const noImagesMessage = document.createElement('p');
+    noImagesMessage.textContent = 'No images available for the selected genre and day.';
+    bookContent.appendChild(noImagesMessage);
+  }
+</script>
+
+</body>
+</html>
