@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dalaiul Khairat & Others</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        background-color: #99582a;
+        color: #432818;
+        padding-top: 60px; /* Adjusted to account for the fixed header */
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-top: 0; /* Adjusted to remove padding at the top */
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+      }
+
+      #pageTitle {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px 0;
+        text-align: center;
+        z-index: 1000;
+      }
+
+      #homeButton {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 1000;
+      }
+
+      #bookContent {
+        padding-top: 40px; /* Adjusted to account for the fixed header */
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1 id="pageTitle" class="text-center">Content</h1>
+    <button
+      id="homeButton"
+      type="button"
+      class="btn btn-primary"
+      onclick="goToHome()"
+    >
+      Home
+    </button>
+    <div class="container">
+      <div id="bookContent">
+        <!-- Content will be dynamically added here -->
+      </div>
+    </div>
+
+    <script>
+      function goToHome() {
+        // Redirect to home page
+        window.location.href = "index.html";
+      }
+
+      const images = {
+        "Dalailul Khairat": {
+          Opening: ["1.jpg", "2.jpg", "3.jpg"],
+          Monday: ["1.jpg", "2.jpg", "3.jpg"],
+        },
+        "Hizbul 'Azam": {
+          Monday: ["1.jpg", "2.jpg", "3.jpg"],
+          "Option 2": [
+            "ha_option2_image1.jpg",
+            "ha_option2_image2.jpg",
+            "ha_option2_image3.jpg",
+          ],
+        },
+        IS: {
+          "Option 1": [
+            "is_option1_image1.jpg",
+            "is_option1_image2.jpg",
+            "is_option1_image3.jpg",
+          ],
+          "Option 2": [
+            "is_option2_image1.jpg",
+            "is_option2_image2.jpg",
+            "is_option2_image3.jpg",
+          ],
+        },
+        HG: ["1.jpg", "2.jpg", "3.jpg"],
+        HW: ["1.jpg", "2.jpg", "3.jpg"],
+      };
+
+      // Get query parameters from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const bookType = urlParams.get("type");
+      const option = urlParams.get("option");
+
+      // Display book contents based on book type and option
+      if (bookType && images.hasOwnProperty(bookType)) {
+        const bookContent = document.getElementById("bookContent");
+        if (option && images[bookType].hasOwnProperty(option)) {
+          const imagePaths = images[bookType][option];
+          imagePaths.forEach((imagePath) => {
+            const img = document.createElement("img");
+            img.src = imagePath;
+            img.alt = "Book Image";
+            bookContent.appendChild(img);
+          });
+        } else if (!option && Array.isArray(images[bookType])) {
+          const imagePaths = images[bookType];
+          imagePaths.forEach((imagePath) => {
+            const img = document.createElement("img");
+            img.src = imagePath;
+            img.alt = "Book Image";
+            bookContent.appendChild(img);
+          });
+        } else {
+          bookContent.innerHTML =
+            "<p>No images available for this book type.</p>";
+        }
+      } else {
+        // Handle invalid or missing parameters
+        const bookContent = document.getElementById("bookContent");
+        bookContent.innerHTML = "<p>Invalid or missing parameters.</p>";
+      }
+
+      // Update page title based on selection
+      const pageTitle = document.getElementById("pageTitle");
+      if (bookType === "HG" || bookType === "HW") {
+        pageTitle.textContent = bookType; // Display HG or HW directly
+      } else if (bookType && option) {
+        pageTitle.textContent = bookType + " " + option; // Display book type and option
+      }
+    </script>
+  </body>
+</html>
