@@ -36,9 +36,9 @@
             <option value="">Select</option>
             <option value="Dalailul Khairat">Dalailul Khairat</option>
             <option value="Hizbul 'Azam">Hizbul 'Azam</option>
-            <option value="HG">Hizbul Ghoyath</option>
-            <option value="HW">Hizbul Wiqayah</option>
-            <option value="IS">Istighfar</option>
+            <option value="Hizbul Ghoyath">Hizbul Ghoyath</option>
+            <option value="Hizbul Wiqayah">Hizbul Wiqayah</option>
+            <option value="Istighfar">Istighfar</option>
           </select>
         </div>
         <div class="form-group" id="optionsContainer" style="display: none">
@@ -81,7 +81,7 @@
             optionElement.text = option;
             bookOptionSelect.add(optionElement);
           });
-        } else if (bookType === "Hizbul 'Azam" || bookType === "IS") {
+        } else if (bookType === "Hizbul 'Azam" || bookType === "Istighfar") {
           optionsContainer.style.display = "block";
           var bookOptionSelect = document.getElementById("bookOption");
           bookOptionSelect.innerHTML = "";
@@ -110,7 +110,7 @@
 
         if (
           bookType &&
-          (bookType !== "HG" || bookType !== "HW") &&
+          (bookType !== "Hizbul Ghoyath" || bookType !== "Hizbul Wiqayah") &&
           bookOption
         ) {
           // Redirect to content page with selected book type and option
@@ -119,7 +119,10 @@
             bookType +
             "&option=" +
             encodeURIComponent(bookOption);
-        } else if (bookType === "HG" || bookType === "HW") {
+        } else if (
+          bookType === "Hizbul Ghoyath" ||
+          bookType === "Hizbul Wiqayah"
+        ) {
           // Redirect to content page for HG and HW with book type only
           window.location.href = "book_content.html?type=" + bookType;
         } else {
