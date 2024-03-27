@@ -38,7 +38,7 @@
             <option value="Hizbul 'Azam">Hizbul 'Azam</option>
             <option value="Hizbul Ghoyath">Hizbul Ghoyath</option>
             <option value="Hizbul Wiqayah">Hizbul Wiqayah</option>
-            <option value="Istighfar">Istighfar</option>
+            <option value="Hizbul Istighfar">Hizbul Istighfar</option>
           </select>
         </div>
         <div class="form-group" id="optionsContainer" style="display: none">
@@ -81,7 +81,10 @@
             optionElement.text = option;
             bookOptionSelect.add(optionElement);
           });
-        } else if (bookType === "Hizbul 'Azam" || bookType === "Istighfar") {
+        } else if (
+          bookType === "Hizbul 'Azam" ||
+          bookType === "Hizbul Istighfar"
+        ) {
           optionsContainer.style.display = "block";
           var bookOptionSelect = document.getElementById("bookOption");
           bookOptionSelect.innerHTML = "";
